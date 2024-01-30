@@ -111,7 +111,7 @@
 
             success: function(json){
                 console.log(json)
-                {% comment %} document.getElementById("cart-qty").textContent = json.qty {% endcomment %}
+                document.getElementById("cart-qty").textContent = json.qty
             },
 
             error: function(xhr, errmsg, err){

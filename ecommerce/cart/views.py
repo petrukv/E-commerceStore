@@ -7,6 +7,8 @@ from .cart import Cart
 # Create your views here.
 
 def cart_summary(request):
+    cart = Cart(request)
+
     return render(request, 'cart/cart-summary.html')
 
 def cart_add(request):
@@ -16,7 +18,8 @@ def cart_add(request):
         product_quantity = int(request.POST.get('product_quantity'))
         product = get_object_or_404(Product, id=product_id)
         cart.add(product=product, product_qty=product_quantity)
-        response = JsonResponse({'The product is called': product.title, 'and the product quantity':product_quantity})
+        cart_quantity = cart.__len__()
+        response = JsonResponse({'qty':cart_quantity})
         return response
 
 def cart_delete(request):
