@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'account',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,11 +42,11 @@ INSTALLED_APPS = [
     'store',
     'cart',
     'mathfilters',
-    'account',
     'crispy_forms',
 ]
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'  # Use the template pack suitable for your project
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -144,3 +145,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'store', 'static', 'ecommerce', 'media')
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
