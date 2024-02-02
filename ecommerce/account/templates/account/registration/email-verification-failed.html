@@ -1,1 +1,26 @@
-<h1>Your account is not verified!</h1>
+{% include "store/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<style>
+
+    body{
+        background-color: grey
+    }
+
+</style>
+
+<body>
+    <br>
+    <div class='container bg-white shadow-md p-5 form-layout'>
+
+        <h5> <strong>Email verification failed!</strong></h5>
+        <hr>
+        <p>Please contact the admin support </p>
+    </div>
+</body>
+
+
+
+{% endblock content %}
