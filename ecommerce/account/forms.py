@@ -21,3 +21,4 @@ class CreateUserForm(UserCreationForm):
         if len(email)>=350:
             raise forms.ValidationError("Your email is too long")
         
+        return email

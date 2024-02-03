@@ -147,9 +147,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'store', 'static', 'ecommerce', 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = '587'
-EMAIL_USE_TLS = 'True'
-
-EMAIL_HOST_USER = 'verificdjango@gmail.com'
-EMAIL_HOST_PASSWORD = 'superuser123'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'testdjangoooo@gmail.com' # - Enter your GMAIL address # The host email that sends password reset emails
+EMAIL_HOST_PASSWORD = 'oilpxjpvtuvgeucu' # - Enter your app password

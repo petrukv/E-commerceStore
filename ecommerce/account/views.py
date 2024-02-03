@@ -1,3 +1,5 @@
+import logging
+
 from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponse
@@ -12,6 +14,7 @@ from .token import user_tokenizer_generate
 # Create your views here.
 
 def register(request):
+
     form = CreateUserForm()
 
     if request.method == 'POST':
@@ -20,7 +23,6 @@ def register(request):
             user = form.save()
             user.is_active = False
             user.save()
-            # Email verification setup (template)
             current_site = get_current_site(request)
             subject = 'Account verification email'
             message = render_to_string('account/registration/email-verification.html', {
@@ -28,27 +30,24 @@ def register(request):
                 'domain': current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token': user_tokenizer_generate.make_token(user),
+            
             })
-            print(message)
-
             user.email_user(subject=subject, message=message)
             return redirect('email-verification-sent')
-
     context = {'form':form}
     return render(request, 'account/registration/register.html', context=context)
 
 
 def email_verification(request, uidb64, token):
     unique_id = force_str(urlsafe_base64_decode(uidb64))
-
     user = User.objects.get(pk=unique_id)
-
     if user and user_tokenizer_generate.check_token(user, token):
         user.is_active = True
         user.save()
         return redirect('email-verification-success')
     else:
         return redirect('email-verification-failed')
+
 
 
 
