@@ -11,6 +11,7 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 
+from .email_server import send_email
 from .forms import CreateUserForm, LoginForm, UpdateUserForm
 from .token import user_tokenizer_generate
 
@@ -28,14 +29,18 @@ def register(request):
             user.save()
             current_site = get_current_site(request)
             subject = 'Account verification email'
-            message = render_to_string('account/registration/email-verification.html', {
-                'user': user,
-                'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token': user_tokenizer_generate.make_token(user),
-            
-            })
-            user.email_user(subject=subject, message=message)
+            send_email(
+                subject=subject,
+                to=user.email,
+                context={
+                    'user': user,
+                    'domain': current_site.domain,
+                    'uidb64': urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token': user_tokenizer_generate.make_token(user),
+                },
+                template_name='account/registration/email-verification.html'
+            )
+
             return redirect('email-verification-sent')
     context = {'form':form}
     return render(request, 'account/registration/register.html', context=context)
