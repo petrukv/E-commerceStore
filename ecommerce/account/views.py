@@ -10,6 +10,8 @@ from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from payment.forms import ShippingForm
+from payment.models import ShippingAddress
 
 from .email_server import send_email
 from .forms import CreateUserForm, LoginForm, UpdateUserForm
@@ -126,3 +128,24 @@ def delete_account(request):
         messages.error(request, "Account deleted")
         return redirect('index')
     return render(request, 'account/delete-account.html')
+
+
+@login_required(login_url='my-login')
+def manage_shipping(request):
+    try:
+        shipping = ShippingAddress.objects.get(user=request.user.id)
+
+    except ShippingAddress.DoesNotExist:
+        shipping = None
+
+    form = ShippingForm(instance=shipping)
+    if request.method == "POST":
+        form = ShippingForm(request.POST, instance=shipping)
+        if form.is_valid():
+            shipping_user = form.save(commit=False)
+            shipping_user.user = request.user
+            shipping_user.save()
+            return redirect('dashboard')
+    
+    context = {'form':form}
+    return render(request, 'account/manage-shipping.html', context=context)

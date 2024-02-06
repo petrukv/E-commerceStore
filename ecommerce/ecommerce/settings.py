@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'cart',
     'mathfilters',
     'crispy_forms',
+    'payment',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'  # Use the template pack suitable for your project
