@@ -176,14 +176,14 @@ $(document).on('click', '.update-button', function(e){
         document.getElementById('cart-qty').textContent = json.qty
         document.getElementById('total').textContent = json.total
 
-      },
+    },
 
-      error: function(xhr, errmsg, err){
+    error: function(xhr, errmsg, err){
 
 
-      }
+    }
 
-  });
+});
 
 
 })
@@ -193,4 +193,3 @@ $(document).on('click', '.update-button', function(e){
 </script>
 
 {% endblock %}
-

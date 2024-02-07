@@ -11,6 +11,8 @@ class ShippingAddress(models.Model):
     address2 = models.CharField(max_length=150)
     city = models.CharField(max_length=50)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    state = models.CharField(max_length=255, null=True, blank=True)
+    zipcode = models.CharField(max_length=255, null=True, blank=True)
 
     class Meta:
         verbose_name_plural = "Shipping Address"
@@ -21,7 +23,7 @@ class ShippingAddress(models.Model):
 class Order(models.Model):
     full_name = models.CharField(max_length=150)
     email = models.EmailField(max_length=254)
-    shippingAddress = models.TextField()
+    shippingAddress = models.TextField(max_length=10000)
     amount_paid = models.DecimalField(max_digits=8, decimal_places=2)
     date_ordered = models.DateTimeField(auto_now_add=True)
 
