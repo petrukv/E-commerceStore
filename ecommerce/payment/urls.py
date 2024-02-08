@@ -9,11 +9,3 @@ urlpatterns = [
     path('payment-failed', views.payment_failed, name='payment-failed'),
 
 ]
-
-
-
-
-
-
-
-

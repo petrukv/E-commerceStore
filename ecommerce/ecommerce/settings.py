@@ -159,3 +159,5 @@ EMAIL_PORT = 587
 
 EMAIL_HOST_USER = 'testdjangoooo@gmail.com' # - Enter your GMAIL address # The host email that sends password reset emails
 EMAIL_HOST_PASSWORD = 'oilpxjpvtuvgeucu' # - Enter your app password
+
+SECURE_CROSS_ORIGIN_OPENER_POLICY='same-origin-allow-popups'
