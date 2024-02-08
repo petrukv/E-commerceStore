@@ -138,8 +138,6 @@
     var total_price = '{{cart.get_total}}';
 
     const paypalButtonsComponent = paypal.Buttons({
-        // optional styling for buttons
-        // https://developer.paypal.com/docs/checkout/standard/customize/buttons-style-guide/
         style: {
             color: "blue",
             shape: "pill",
@@ -194,8 +192,6 @@
         },
         
 
-        
-        // set up the transaction
         createOrder: (data, actions) => {
             const createOrderPayload = {
                 purchase_units: [
@@ -210,7 +206,6 @@
             return actions.order.create(createOrderPayload);
         },
 
-        // finalize the transaction
         onApprove: (data, actions) => {
             const captureOrderHandler = (details) => {
                 const payerName = details.payer.name.given_name;
@@ -241,7 +236,6 @@
             return actions.order.capture().then(captureOrderHandler);
         },
 
-         // handle unrecoverable errors
         onError: (err) => {
             console.error('An error prevented the buyer from checking out with PayPal');
         }
